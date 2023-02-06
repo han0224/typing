@@ -5,6 +5,7 @@ import { Keyboard } from "./Keyboard";
 import { TextArea } from "./TextArea";
 export function Main() {
   const [key, setKey] = useState();
+  const [enter, setEnter] = useState(false);
   const trans = {
     ㅃ: "ㅂ",
     ㅉ: "ㅈ",
@@ -16,6 +17,7 @@ export function Main() {
   };
   const onkeydown = useCallback(
     (e) => {
+      setEnter(e.key === "Enter");
       if (trans[e.key]) setKey(trans[e.key]);
       else setKey(e.key);
     },
@@ -35,7 +37,7 @@ export function Main() {
   return (
     <main>
       <Info />
-      <TextArea />
+      <TextArea enter={enter} />
       <div className={style.keyboard}>
         <Keyboard value={key} />
       </div>

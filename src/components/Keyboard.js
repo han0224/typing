@@ -7,10 +7,6 @@ export function Keyboard({ value }) {
     ["ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ", ",", ".", "/"],
   ];
 
-  useEffect(() => {
-    console.log("!!!!", value);
-  });
-
   return (
     <div className={style.keyboard}>
       <div className={style.row}>
