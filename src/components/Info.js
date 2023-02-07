@@ -4,12 +4,18 @@ import style from "../styles/Info.module.css";
 export function Info({ state }) {
   const [time, setTime] = useState(0);
   const timer = useRef(null);
+
+  const formatTime = (time) => {
+    return `${`0${Math.floor(time / 60)}`.slice(-2)}:${`0${time % 60}`.slice(
+      -2
+    )}`;
+  };
+
   useEffect(() => {
-    console.log(state);
     if (state) {
       timer.current = setInterval(() => {
         setTime((pre) => pre + 1);
-      }, 1000);
+      }, 500);
       return () => clearInterval(timer.current);
     } else {
       clearInterval(timer.current);
@@ -19,7 +25,7 @@ export function Info({ state }) {
     <div className={style.info}>
       <div>
         <p>진행시간(초)</p>
-        <p>{time}</p>
+        <p>{formatTime(time)}</p>
       </div>
       <div>
         <p>타수(타/m)</p>
