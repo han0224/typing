@@ -1,14 +1,15 @@
 import kadvice from "kadvice";
+import { Text } from "./Text";
 import { useEffect, useState } from "react";
 import style from "../styles/TextArea.module.css";
 
 export function TextArea({ enter }) {
-  const [pre, setPre] = useState({ text: "", typing: "" });
-  const [now, setNow] = useState({ text: "", typing: "" });
-  const [next, setNext] = useState({ text: "", typing: "" });
+  const [pre, setPre] = useState({ text: "", typing: [] });
+  const [now, setNow] = useState({ text: "", typing: [] });
+  const [next, setNext] = useState({ text: "", typing: [] });
 
   const onChange = (e) => {
-    setNow({ ...now, typing: e.target.value });
+    setNow({ ...now, typing: e.target.value.split("") });
   };
   const nowTyping = () => {
     setPre({ text: now.text, typing: now.typing });
@@ -30,15 +31,15 @@ export function TextArea({ enter }) {
   return (
     <div className={style["text-area"]}>
       <div>
-        <p>{pre.text}</p>
+        <Text text={pre.text} input={pre.typing} state={"pre"} />
         <p>{pre.typing}</p>
       </div>
       <div className={style.typing}>
-        <p>{now.text}</p>
+        <Text text={now.text} input={now.typing} state={"now"} />
         <p>
           <input
             type={"text"}
-            value={now.typing}
+            value={now.typing.join("")}
             onChange={onChange}
             autoFocus
           ></input>
