@@ -6,6 +6,8 @@ import { TextArea } from "./TextArea";
 export function Main() {
   const [key, setKey] = useState();
   const [enter, setEnter] = useState(false);
+  const [start, setStart] = useState(false);
+
   const trans = {
     ㅃ: "ㅂ",
     ㅉ: "ㅈ",
@@ -29,6 +31,14 @@ export function Main() {
     },
     [key]
   );
+  const onclick = (e) => {
+    setStart(!start);
+  };
+  const reload = (e) => {
+    console.log("!");
+    window.location.reload(false);
+  };
+
   useEffect(() => {
     document.body.addEventListener("keydown", onkeydown);
     document.body.addEventListener("keyup", onkeyup);
@@ -36,10 +46,21 @@ export function Main() {
 
   return (
     <main>
-      <Info />
-      <TextArea enter={enter} />
-      <div className={style.keyboard}>
-        <Keyboard value={key} />
+      <div className={style[`btn-stack`]}>
+        <button
+          className={start ? style[`button-inactive`] : style[`button-active`]}
+          onClick={onclick}
+        >
+          {start ? "중지" : "시작"}
+        </button>
+        <button onClick={reload}>다시 시작</button>
+      </div>
+      <Info state={start} />
+      <div className={start ? style.active : style.inactive}>
+        <TextArea enter={enter} state={start} />
+        <div className={style.keyboard}>
+          <Keyboard value={key} />
+        </div>
       </div>
     </main>
   );

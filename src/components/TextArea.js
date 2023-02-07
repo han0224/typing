@@ -3,7 +3,7 @@ import { Text } from "./Text";
 import { useEffect, useState } from "react";
 import style from "../styles/TextArea.module.css";
 
-export function TextArea({ enter }) {
+export function TextArea({ enter, state }) {
   const [pre, setPre] = useState({ text: "", typing: [] });
   const [now, setNow] = useState({ text: "", typing: [] });
   const [next, setNext] = useState({ text: "", typing: [] });
@@ -37,12 +37,16 @@ export function TextArea({ enter }) {
       <div className={style.typing}>
         <Text text={now.text} input={now.typing} state={"now"} />
         <p>
-          <input
-            type={"text"}
-            value={now.typing.join("")}
-            onChange={onChange}
-            autoFocus
-          ></input>
+          {state ? (
+            <input
+              type={"text"}
+              value={now.typing.join("")}
+              onChange={onChange}
+              autoFocus
+            ></input>
+          ) : (
+            ""
+          )}
         </p>
       </div>
       <div>

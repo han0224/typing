@@ -2,3 +2,36 @@
   display: flex;
   justify-content: center;
 }
+
+.btn-stack {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-stack > button {
+  background-color: transparent;
+  border: none;
+  background-color: #f5d882;
+  font-size: 16px;
+  border-radius: 16px;
+  margin-top: 10px;
+  padding: 8px 64px;
+  transition: all 0.1s;
+}
+
+.btn-stack > button:active {
+  background-color: #e1c572;
+}
+
+.btn-stack > button:hover {
+  box-shadow: 1px 1px 10px #6c603d;
+  background-color: #edce71;
+}
+
+.active {
+  opacity: 1;
+}
+
+.inactive {
+  opacity: 0.3;
+}
