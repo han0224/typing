@@ -4,6 +4,8 @@
 
 header {
   background-color: #f7e8ca;
+  border-bottom: 1px solid #c8b8986f;
+  box-shadow: 1px 1px 10px #c8b898;
 }
 
 h1 {

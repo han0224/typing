@@ -1,8 +1,11 @@
 .text-area {
-  height: 290px;
+  background-color: white;
+  height: 300px;
   overflow-y: hidden;
-  margin: 16px 32px;
+  margin: 16px 200px;
+  padding: 16px 24px;
   border-radius: 16px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.476);
 }
 
 .text-area > div {
@@ -14,6 +17,7 @@
 
 .text-area > div > p:first-child {
   background-color: #f5d882;
+  cursor: default;
   border-radius: 8px;
 }
 
@@ -48,4 +52,10 @@ input {
 }
 input:focus {
   outline: none;
+}
+
+@media screen and (max-width: 860px) {
+  .text-area {
+    margin: 16px 32px;
+  }
 }

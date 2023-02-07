@@ -9,9 +9,10 @@
 }
 
 .btn-stack > button {
-  background-color: transparent;
+  cursor: pointer;
   border: none;
   background-color: #f5d882;
+  border: 1px solid #e1c57289;
   font-size: 16px;
   border-radius: 16px;
   margin-top: 10px;
