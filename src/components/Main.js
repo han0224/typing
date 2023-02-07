@@ -1,23 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import style from "../styles/Main.module.css";
 import { Info } from "./Info";
 import { Keyboard } from "./Keyboard";
 import { TextArea } from "./TextArea";
+import { trans } from "../utils/trans";
+
 export function Main() {
   const [key, setKey] = useState();
   const [enter, setEnter] = useState(false);
   const [start, setStart] = useState(false);
   const [char, setChar] = useState(0);
 
-  const trans = {
-    ㅃ: "ㅂ",
-    ㅉ: "ㅈ",
-    ㄸ: "ㄷ",
-    ㄲ: "ㄱ",
-    ㅆ: "ㅅ",
-    ㅒ: "ㅐ",
-    ㅖ: "ㅔ",
-  };
   const onkeydown = useCallback(
     (e) => {
       setEnter(e.key === "Enter");
