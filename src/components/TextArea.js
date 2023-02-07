@@ -1,6 +1,6 @@
 import kadvice from "kadvice";
 import { Text } from "./Text";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import style from "../styles/TextArea.module.css";
 
 export function TextArea({ enter, state }) {
@@ -11,21 +11,27 @@ export function TextArea({ enter, state }) {
   const onChange = (e) => {
     setNow({ ...now, typing: e.target.value.split("") });
   };
-  const nowTyping = () => {
+  const nowTyping = useCallback(() => {
     setPre({ text: now.text, typing: now.typing });
     setNow({ text: next.text, typing: next.typing });
-    setNext({ ...next, text: kadvice.random().message });
-  };
+    setNext((next) => {
+      return { ...next, text: kadvice.random().message };
+    });
+  }, [now, next]);
+
   useEffect(() => {
-    if (enter) {
-      nowTyping();
-    }
+    if (enter) nowTyping();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enter]);
 
   useEffect(() => {
     setPre({ text: "", typing: "" });
-    setNext({ ...next, text: kadvice.random(1).message });
-    setNow({ ...now, text: kadvice.random(2).message });
+    setNext((next) => {
+      return { ...next, text: kadvice.random(1).message };
+    });
+    setNow((now) => {
+      return { ...now, text: kadvice.random(2).message };
+    });
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import style from "../styles/Main.module.css";
 import { Info } from "./Info";
 import { Keyboard } from "./Keyboard";
@@ -11,21 +11,16 @@ export function Main() {
   const [start, setStart] = useState(false);
   const [char, setChar] = useState(0);
 
-  const onkeydown = useCallback(
-    (e) => {
-      setEnter(e.key === "Enter");
-      setChar((pre) => pre + 1);
-      if (trans[e.key]) setKey(trans[e.key]);
-      else setKey(e.key);
-    },
-    [key]
-  );
-  const onkeyup = useCallback(
-    (e) => {
-      setKey("");
-    },
-    [key]
-  );
+  const onkeydown = (e) => {
+    setEnter(e.key === "Enter");
+    if (e.key !== "Backspace") setChar((pre) => pre + 1);
+    if (trans[e.key]) setKey(trans[e.key]);
+    else setKey(e.key);
+  };
+  const onkeyup = (e) => {
+    setKey("");
+  };
+
   const onclick = (e) => {
     setStart(!start);
   };

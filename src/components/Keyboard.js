@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import style from "../styles/Keyboard.module.css";
 export function Keyboard({ value }) {
   const keyboardItem = [

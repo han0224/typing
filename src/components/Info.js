@@ -13,9 +13,11 @@ export function Info({ state, char }) {
     )}`;
   };
   useEffect(() => {
+    if (time === 0) return;
     setCpm(Math.floor((char / time) * 60) || 0);
     setBest(Math.max(cpm, best));
-  }, [time]);
+  }, [cpm, best, char, time]);
+
   useEffect(() => {
     if (state) {
       timer.current = setInterval(() => {
