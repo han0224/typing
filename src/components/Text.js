@@ -1,16 +1,14 @@
 export function Text({ text, input, state }) {
-  const isSame = (v1, v2) => {
-    if (state === "now" && !v2) return true;
-    return v1 === v2;
+  const isSame = (v1, i) => {
+    if (state === "now" && (!input[i] || input.length - 1 === i)) return true;
+    return v1 === input[i];
   };
 
   return (
     <p>
       {text
         .split("")
-        .map((v, i) =>
-          isSame(v, input[i]) ? v : <span key={`diff-${i}`}>{v}</span>
-        )}
+        .map((v, i) => (isSame(v, i) ? v : <span key={`diff-${i}`}>{v}</span>))}
     </p>
   );
 }
