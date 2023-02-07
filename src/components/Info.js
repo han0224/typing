@@ -1,26 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 import style from "../styles/Info.module.css";
 
-export function Info({ state }) {
+export function Info({ state, char }) {
   const [time, setTime] = useState(0);
   const timer = useRef(null);
+  const [cpm, setCpm] = useState(0);
+  const [best, setBest] = useState(0);
 
   const formatTime = (time) => {
     return `${`0${Math.floor(time / 60)}`.slice(-2)}:${`0${time % 60}`.slice(
       -2
     )}`;
   };
-
+  useEffect(() => {
+    setCpm(Math.floor((char / time) * 60) || 0);
+    setBest(Math.max(cpm, best));
+  }, [time]);
   useEffect(() => {
     if (state) {
       timer.current = setInterval(() => {
         setTime((pre) => pre + 1);
-      }, 500);
+      }, 1000);
       return () => clearInterval(timer.current);
     } else {
       clearInterval(timer.current);
     }
   }, [state]);
+
   return (
     <div className={style.info}>
       <div>
@@ -29,11 +35,11 @@ export function Info({ state }) {
       </div>
       <div>
         <p>타수(타/m)</p>
-        <p>256</p>
+        <p>{cpm}</p>
       </div>
       <div>
         <p>최고타수</p>
-        <p>700</p>
+        <p>{best}</p>
       </div>
     </div>
   );

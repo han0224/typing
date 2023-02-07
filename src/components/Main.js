@@ -7,6 +7,7 @@ export function Main() {
   const [key, setKey] = useState();
   const [enter, setEnter] = useState(false);
   const [start, setStart] = useState(false);
+  const [char, setChar] = useState(0);
 
   const trans = {
     ㅃ: "ㅂ",
@@ -20,6 +21,7 @@ export function Main() {
   const onkeydown = useCallback(
     (e) => {
       setEnter(e.key === "Enter");
+      setChar((pre) => pre + 1);
       if (trans[e.key]) setKey(trans[e.key]);
       else setKey(e.key);
     },
@@ -35,14 +37,18 @@ export function Main() {
     setStart(!start);
   };
   const reload = (e) => {
-    console.log("!");
     window.location.reload(false);
   };
 
   useEffect(() => {
-    document.body.addEventListener("keydown", onkeydown);
-    document.body.addEventListener("keyup", onkeyup);
-  }, []);
+    if (start) {
+      document.body.addEventListener("keydown", onkeydown);
+      document.body.addEventListener("keyup", onkeyup);
+    } else {
+      document.body.removeEventListener("keydown", onkeydown);
+      document.body.removeEventListener("keyup", onkeyup);
+    }
+  }, [start]);
 
   return (
     <main>
@@ -55,7 +61,7 @@ export function Main() {
         </button>
         <button onClick={reload}>다시 시작</button>
       </div>
-      <Info state={start} />
+      <Info state={start} char={char} />
       <div className={start ? style.active : style.inactive}>
         <TextArea enter={enter} state={start} />
         <div className={style.keyboard}>
