@@ -3,7 +3,8 @@ import style from "../styles/Main.module.css";
 import { Info } from "./Info";
 import { Keyboard } from "./Keyboard";
 import { TextArea } from "./TextArea";
-import { trans } from "../utils/trans";
+import { trans } from "../constants/Trans";
+import { reload } from "../utils/Page";
 
 export function Main() {
   const [key, setKey] = useState();
@@ -25,13 +26,6 @@ export function Main() {
     setKey("");
   };
 
-  const onclick = (e) => {
-    setStart(!start);
-  };
-  const reload = (e) => {
-    window.location.reload(false);
-  };
-
   useEffect(() => {
     if (start) {
       document.body.addEventListener("keydown", onkeydown);
@@ -47,7 +41,7 @@ export function Main() {
       <div className={style[`btn-stack`]}>
         <button
           className={start ? style[`button-inactive`] : style[`button-active`]}
-          onClick={onclick}
+          onClick={() => setStart(!start)}
         >
           {start ? "중지" : "시작"}
         </button>

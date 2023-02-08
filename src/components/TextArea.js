@@ -19,6 +19,7 @@ export function TextArea({ enter, state, setAccuracy }) {
     });
     setNow({ ...now, typing: inputText.split("") });
   };
+
   const nowTyping = useCallback(() => {
     const nowCorrect = now.text
       .split("")
