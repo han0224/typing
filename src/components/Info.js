@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { INFO } from "../constants/String";
 import style from "../styles/Info.module.css";
 import { formatTime } from "../utils/Format";
 import { InfoItem } from "./InfoItem";
@@ -34,9 +35,10 @@ export function Info({ state, char, accuracy }) {
 
   return (
     <div className={style.info}>
-      <InfoItem info={"진행시간(초)"} value={formatTime(time)} />
-      <InfoItem info={"타수(타/m)"} value={best} />
-      <InfoItem info={"정확도"} value={getAccuracy()} />
+      <InfoItem info={INFO.TIME} value={formatTime(time)} />
+      <InfoItem info={INFO.CPM} value={cpm} />
+      <InfoItem info={INFO.BEST} value={best} />
+      <InfoItem info={INFO.ACCURACY} value={getAccuracy()} />
     </div>
   );
 }

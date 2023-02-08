@@ -5,6 +5,7 @@ import { Keyboard } from "./Keyboard";
 import { TextArea } from "./TextArea";
 import { trans } from "../constants/Trans";
 import { reload } from "../utils/Page";
+import { STATE } from "../constants/String";
 
 export function Main() {
   const [key, setKey] = useState();
@@ -43,9 +44,9 @@ export function Main() {
           className={start ? style[`button-inactive`] : style[`button-active`]}
           onClick={() => setStart(!start)}
         >
-          {start ? "중지" : "시작"}
+          {start ? STATE.STOP : STATE.START}
         </button>
-        <button onClick={reload}>다시 시작</button>
+        <button onClick={reload}>{STATE.RESTART}</button>
       </div>
       <Info state={start} char={char} accuracy={accuracy} />
       <div className={start ? style.active : style.inactive}>
