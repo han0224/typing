@@ -10,6 +10,10 @@ export function Main() {
   const [enter, setEnter] = useState(false);
   const [start, setStart] = useState(false);
   const [char, setChar] = useState(0);
+  const [accuracy, setAccuracy] = useState({
+    pre: { total: 0, correct: 0 },
+    now: { total: 0, correct: 0 },
+  });
 
   const onkeydown = (e) => {
     setEnter(e.key === "Enter");
@@ -49,9 +53,9 @@ export function Main() {
         </button>
         <button onClick={reload}>다시 시작</button>
       </div>
-      <Info state={start} char={char} />
+      <Info state={start} char={char} accuracy={accuracy} />
       <div className={start ? style.active : style.inactive}>
-        <TextArea enter={enter} state={start} />
+        <TextArea enter={enter} state={start} setAccuracy={setAccuracy} />
         <div className={style.keyboard}>
           <Keyboard value={key} />
         </div>

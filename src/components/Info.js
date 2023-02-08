@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import style from "../styles/Info.module.css";
 
-export function Info({ state, char }) {
+export function Info({ state, char, accuracy }) {
   const [time, setTime] = useState(0);
   const timer = useRef(null);
   const [cpm, setCpm] = useState(0);
@@ -12,6 +12,14 @@ export function Info({ state, char }) {
       -2
     )}`;
   };
+
+  const getAccuracy = () => {
+    const correct = accuracy.pre.correct + accuracy.now.correct;
+    const total = accuracy.pre.total + accuracy.now.total;
+    if (total === 0) return `100%`;
+    return Math.floor((correct / total) * 100) + "%";
+  };
+
   useEffect(() => {
     if (time === 0) return;
     setCpm(Math.floor((char / time) * 60) || 0);
@@ -42,6 +50,10 @@ export function Info({ state, char }) {
       <div>
         <p>최고타수</p>
         <p>{best}</p>
+      </div>
+      <div>
+        <p>정확도</p>
+        <p>{getAccuracy()}</p>
       </div>
     </div>
   );

@@ -33,6 +33,7 @@
 
 .text-area > div > p > span {
   color: red;
+  text-decoration: line-through;
 }
 
 .text-area > .typing {
