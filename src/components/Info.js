@@ -11,6 +11,7 @@ export function Info({ state, char, accuracy }) {
   const [best, setBest] = useState(0);
 
   const getAccuracy = () => {
+    console.log(accuracy);
     const correct = accuracy.pre.correct + accuracy.now.correct;
     const total = accuracy.pre.total + accuracy.now.total;
     if (total === 0) return `100%`;
@@ -21,7 +22,7 @@ export function Info({ state, char, accuracy }) {
     if (time === 0) return;
     setCpm(Math.floor((char / time) * 60) || 0);
     setBest(Math.max(cpm, best));
-  }, [cpm, best, char, time]);
+  }, [time]);
 
   useEffect(() => {
     if (state) {

@@ -30,8 +30,8 @@ export function TextArea({ enter, state, setAccuracy }) {
     setAccuracy((pre) => {
       return {
         pre: {
-          total: pre.now.total + now.text.length,
-          correct: pre.now.correct + nowCorrect,
+          total: pre.pre.total + now.text.length,
+          correct: pre.pre.correct + nowCorrect,
         },
         now: { total: 0, correct: 0 },
       };
