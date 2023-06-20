@@ -1,3 +1,7 @@
+export const TITLE = {
+  HEADER: "타자연습",
+};
+
 export const INFO = {
   TIME: "진행시간(초)",
   CPM: "타수(타/m)",

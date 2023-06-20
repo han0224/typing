@@ -27,3 +27,9 @@ npm start
 ![typing2](https://user-images.githubusercontent.com/70616579/226365019-af6d7be8-1411-4c5e-a8a0-31bfba52ab82.gif)
 
 - 작성되지 않은 글은 전부 오타로 표시
+
+## 기술 스택
+
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/></a>
+
+<img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/></a>

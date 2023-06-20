@@ -1,7 +1,7 @@
 export function Text({ text, input, state }) {
-  const isSame = (v1, i) => {
+  const isSame = (char, i) => {
     if (state === "now" && (!input[i] || input.length - 1 === i)) return true;
-    return v1 === input[i];
+    return char === input[i];
   };
 
   return (
