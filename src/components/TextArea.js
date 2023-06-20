@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import kadvice from "kadvice";
 import { Text } from "./Text";
 import { useCallback, useEffect, useState } from "react";

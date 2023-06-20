@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { INFO } from "../constants/String";
 import style from "../styles/Info.module.css";
