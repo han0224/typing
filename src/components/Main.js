@@ -3,9 +3,10 @@ import style from "../styles/Main.module.css";
 import { Info } from "./Info";
 import { Keyboard } from "./Keyboard";
 import { TextArea } from "./TextArea";
-import { trans } from "../constants/Trans";
+import { enToKr, trans } from "../constants/Trans";
 import { reload } from "../utils/Page";
 import { STATE } from "../constants/String";
+import { OS } from "../constants/OS";
 
 export function Main() {
   const [key, setKey] = useState(); // 현재 눌린 키, 화면에 있는 키보드에 표시해두기 위한 용도
@@ -19,6 +20,7 @@ export function Main() {
     pre: { total: 0, correct: 0 },
     now: { total: 0, correct: 0 },
   });
+  const userOS = useRef("window");
   // accuracy 변경 함수
   const setAccuracy = {
     pre: (newValue) => {
@@ -47,6 +49,25 @@ export function Main() {
   };
 
   /**
+   * 사용자의 운영체제를 반환해주는 함수
+   * mac: keydown 이벤트의 event.key는 한글 영어 상관없이 사용자가 입력한 문자가 나옴
+   * window: keydown 이벤트의 event.key는 한글에서 사용자가 입력한 문자가 제대로 나오지 않음
+   * -> 그렇기에 사용자가 window를 사용하는지, mac을 사용하는지 구분해야함
+   */
+  const checkUserOS = () => {
+    if (!("navigator" in window)) {
+      return "unknown";
+    }
+    const platform = (
+      navigator.userAgentData?.platform || navigator.platform
+    )?.toLowerCase();
+
+    if (platform.startsWith("win")) return "windows";
+    if (platform.startsWith("mac")) return "macos";
+    return "unknown";
+  };
+
+  /**
    *
    * @param {KeyboardEvent<HTMLImageElement>} e
    * 현재 누른 키에 대한 정보 변경 함수
@@ -54,10 +75,19 @@ export function Main() {
    * 쌍자음에 대한 정보는 화면에 있는 키보드에 보이지 않으므로 변환하여 key에 저장
    */
   const onkeydown = (e) => {
-    setEnter(e.key === "Enter");
-    if (e.key !== "Backspace") setChar((pre) => pre + 1);
-    if (trans[e.key]) setKey(trans[e.key]);
-    else setKey(e.key);
+    const { key, code } = e;
+    let currentKey = key;
+    if (userOS.current === OS.windows && currentKey === "process") {
+      const tmp = code.slice(3);
+
+      currentKey = enToKr[tmp.toLowerCase()];
+    }
+    setEnter(currentKey === "Enter");
+
+    if (currentKey !== "Backspace") setChar((pre) => pre + 1);
+
+    if (trans[currentKey]) setKey(trans[currentKey]);
+    else setKey(currentKey);
   };
   /**
    * keyup 이벤트가 발생한 경우 눌린 키가 없으므로 setkey를 공백문자로 설정
@@ -79,6 +109,10 @@ export function Main() {
       document.body.removeEventListener("keyup", onkeyup);
     }
   }, [start]);
+  useEffect(() => {
+    const os = checkUserOS();
+    userOS.current = OS[os];
+  }, []);
 
   return (
     <main>
