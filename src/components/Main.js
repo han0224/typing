@@ -77,9 +77,8 @@ export function Main() {
   const onkeydown = (e) => {
     const { key, code } = e;
     let currentKey = key;
-    if (userOS.current === OS.windows && currentKey === "process") {
+    if (userOS.current === OS.windows && currentKey === "Process") {
       const tmp = code.slice(3);
-
       currentKey = enToKr[tmp.toLowerCase()];
     }
     setEnter(currentKey === "Enter");
