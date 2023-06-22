@@ -15,7 +15,7 @@ export function TextArea({ isEnter, isStart, setAccuracy }) {
   const [next, setNext] = useState({ text: "", typing: [] });
 
   const onChange = (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     // 현재 작성중인 모든 텍스트들
     const { value } = e.target;
     // 현재 작성중인 텍스트들 중 올바르게 작성한 텍스트 갯수
