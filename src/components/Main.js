@@ -99,15 +99,15 @@ export function Main() {
    * 시작 상태일때 onkeydown, onkeyup 함수를 이벤트리스너에 추가
    * 시작 상태가 아닐 경우 이벤트리스너에서 제거
    */
-  useEffect(() => {
-    if (start) {
-      document.body.addEventListener("keydown", onkeydown);
-      document.body.addEventListener("keyup", onkeyup);
-    } else {
-      document.body.removeEventListener("keydown", onkeydown);
-      document.body.removeEventListener("keyup", onkeyup);
-    }
-  }, [start]);
+  // useEffect(() => {
+  //   if (start) {
+  //     document.body.addEventListener("keydown", onkeydown);
+  //     document.body.addEventListener("keyup", onkeyup);
+  //   } else {
+  //     document.body.removeEventListener("keydown", onkeydown);
+  //     document.body.removeEventListener("keyup", onkeyup);
+  //   }
+  // }, [start]);
   useEffect(() => {
     const os = checkUserOS();
     userOS.current = OS[os];
@@ -126,7 +126,13 @@ export function Main() {
       </div>
       <Info state={start} char={char} accuracy={viewAccuracy} />
       <div className={start ? style.active : style.inactive}>
-        <TextArea isEnter={enter} isStart={start} setAccuracy={setAccuracy} />
+        <TextArea
+          isEnter={enter}
+          isStart={start}
+          setAccuracy={setAccuracy}
+          keyDown={onkeydown}
+          keyUp={onkeyup}
+        />
         <div className={style.keyboard}>
           <Keyboard value={key} />
         </div>

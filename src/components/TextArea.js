@@ -9,13 +9,12 @@ import style from "../styles/TextArea.module.css";
  * isStart: 시작상태인가?
  * setAccuracy: 정확도 state setState
  */
-export function TextArea({ isEnter, isStart, setAccuracy }) {
+export function TextArea({ isEnter, isStart, setAccuracy, keyDown, keyUp }) {
   const [pre, setPre] = useState({ text: "", typing: [] });
   const [now, setNow] = useState({ text: "", typing: [] });
   const [next, setNext] = useState({ text: "", typing: [] });
 
   const onChange = (e) => {
-    // console.log(e.target);
     // 현재 작성중인 모든 텍스트들
     const { value } = e.target;
     // 현재 작성중인 텍스트들 중 올바르게 작성한 텍스트 갯수
@@ -84,6 +83,8 @@ export function TextArea({ isEnter, isStart, setAccuracy }) {
               type={"text"}
               value={now.typing.join("")}
               onChange={onChange}
+              onKeyDown={keyDown}
+              onKeyUp={keyUp}
               autoFocus
             ></input>
           ) : (
