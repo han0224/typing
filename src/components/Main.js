@@ -6,7 +6,6 @@ import { TextArea } from "./TextArea";
 import { enToKr, trans } from "../constants/Trans";
 import { reload } from "../utils/Page";
 import { STATE } from "../constants/String";
-import { OS } from "../constants/OS";
 
 export function Main() {
   const [key, setKey] = useState(); // 현재 눌린 키, 화면에 있는 키보드에 표시해두기 위한 용도
@@ -20,7 +19,6 @@ export function Main() {
     pre: { total: 0, correct: 0 },
     now: { total: 0, correct: 0 },
   });
-  const userOS = useRef("window");
   // accuracy 변경 함수
   const setAccuracy = {
     pre: (newValue) => {
@@ -54,18 +52,18 @@ export function Main() {
    * window: keydown 이벤트의 event.key는 한글에서 사용자가 입력한 문자가 제대로 나오지 않음
    * -> 그렇기에 사용자가 window를 사용하는지, mac을 사용하는지 구분해야함
    */
-  const checkUserOS = () => {
-    if (!("navigator" in window)) {
-      return "unknown";
-    }
-    const platform = (
-      navigator.userAgentData?.platform || navigator.platform
-    )?.toLowerCase();
+  // const checkUserOS = () => {
+  //   if (!("navigator" in window)) {
+  //     return "unknown";
+  //   }
+  //   const platform = (
+  //     navigator.userAgentData?.platform || navigator.platform
+  //   )?.toLowerCase();
 
-    if (platform.startsWith("win")) return "windows";
-    if (platform.startsWith("mac")) return "macos";
-    return "unknown";
-  };
+  //   if (platform.startsWith("win")) return "windows";
+  //   if (platform.startsWith("mac")) return "macos";
+  //   return "unknown";
+  // };
 
   /**
    *
@@ -76,14 +74,11 @@ export function Main() {
    */
   const onkeydown = (e) => {
     const { key, code } = e;
-    let currentKey = key;
-    if (userOS.current === OS.windows && currentKey === "Process") {
-      const tmp = code.slice(3);
-      currentKey = enToKr[tmp.toLowerCase()];
-    }
-    setEnter(currentKey === "Enter");
+    const tmp = code.slice(3);
+    const currentKey = enToKr[tmp.toLowerCase()];
+    setEnter(key === "Enter");
 
-    if (currentKey !== "Backspace") setChar((pre) => pre + 1);
+    if (key !== "Backspace") setChar((pre) => pre + 1);
 
     if (trans[currentKey]) setKey(trans[currentKey]);
     else setKey(currentKey);
@@ -108,10 +103,7 @@ export function Main() {
   //     document.body.removeEventListener("keyup", onkeyup);
   //   }
   // }, [start]);
-  useEffect(() => {
-    const os = checkUserOS();
-    userOS.current = OS[os];
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <main>
