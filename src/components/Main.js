@@ -74,10 +74,22 @@ export function Main() {
    */
   const onkeydown = (e) => {
     const { key, code } = e;
+
+    if (code.includes("Digit")) {
+      const a = code.slice(5);
+      setKey(a);
+      return;
+    }
+    if (!code.includes("Key")) {
+      console.log("!@3", key);
+      if (trans[key]) setKey(trans[key]);
+      else setKey(key);
+      return;
+    }
     const tmp = code.slice(3);
     const currentKey = enToKr[tmp.toLowerCase()];
     setEnter(key === "Enter");
-
+    console.log(key, code);
     if (key !== "Backspace") setChar((pre) => pre + 1);
 
     if (trans[currentKey]) setKey(trans[currentKey]);
